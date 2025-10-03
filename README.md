@@ -8,24 +8,28 @@
 ## Installation
 
 Clone the Repository (or download the files):
-```git clone https://github.com/ztsmhmd/QuranBits.git
+```
+git clone https://github.com/ztsmhmd/QuranBits.git
 cd QuranBits
 ```
 
 ### Set Up a Virtual Environment (recommended):
-```python -m venv venv
+```
+python -m venv venv
 source venv/bin/activate  # On Windows: venv\Scripts\activate
 ```
-
 ### Install Dependencies:
-``pip install -r requirements.txt``
-
+```
+pip install -r requirements.txt
+```
 
 
 ## Usage
 
 Run the Application:
-``python app.py``
+```
+python app.py
+```
 
 The app will start in debug mode on http://127.0.0.1:5000/.
 
@@ -46,13 +50,14 @@ Verify audio URLs (e.g., https://github.com/The-Quran-Project/Quran-Audio-Chapte
 
 ## Project Structure
 
-```quran_app/
-├── .gitignore          # Excludes unnecessary files (e.g., venv/, __pycache__/)
-├── app.py              # Main Flask application with routes for surah list and details
-├── templates/          # HTML templates
-│   ├── index.html      # Displays the list of all surahs
-│   └── surah.html      # Shows ayah details and audio for a selected surah
-└── requirements.txt    # Lists dependencies (Flask, requests)
+```
+quran_app/
+├── .gitignore         
+├── app.py              
+├── templates/          
+│   ├── index.html      
+│   └── surah.html      
+└── requirements.txt    
 ```
 
 ## API Details
