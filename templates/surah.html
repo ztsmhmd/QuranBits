@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{surah.surahName}} - QuranBits</title>
+    <link href="https://fonts.googleapis.com/css2?family=Amiri+Quran&display=swap" rel="stylesheet">
+    <style>
+        body { font-family: Arial, sans-serif; margin: 20px; }
+        h1 { color: #333; }
+        .ayah { margin-bottom: 20px; }
+        .arabic { font-family: 'Amiri Quran', serif; font-size: 1.5em; direction: rtl; }
+        .translation { color: #333; }
+        a { text-decoration: none; color: #0066cc; }
+        a:hover { text-decoration: underline; }
+        audio { margin-top: 10px; }
+    </style>
+</head>
+<body>
+    <a href="/">Back to Surah List</a>
+    
+    {% if error %}
+        <h1>Error</h1>
+        <p style="color: red;">{{ error }}</p>
+    {% elif surah %}
+        <h1>{{ surah.surahName }} ({{ surah.surahNameArabic }}) - {{ surah.surahNameTranslation }}</h1>
+        <p>Revelation Place: {{ surah.revelationPlace }} | Total Ayahs: {{ surah.totalAyah }} | Surah Number: {{ surah.surahNo }}</p>
+        
+        {% if surah.audio %}
+            <div>
+                <label for="reciter-select">Select Reciter:</label>
+                <select id="reciter-select" onchange="document.getElementById('surah-audio').src = this.value;">
+                    <option value="{{ surah.audio['1'].url }}" selected>Mishary Rashid Al Afasy</option>
+                    <option value="{{ surah.audio['2'].url }}">Abu Bakr Al Shatri</option>
+                    <option value="{{ surah.audio['3'].url }}">Nasser Al Qatami</option>
+                </select>
+                <audio id="surah-audio" controls preload="none">
+                    <source src="{{ surah.audio['1'].url }}" type="audio/mp3">
+                    Your browser does not support the audio element.
+                </audio>
+            </div>
+        {% endif %}
+
+        <h2>Ayahs</h2>
+        {% for i in range(surah.totalAyah) %}
+            <div class="ayah">
+                <p><strong>Ayah {{ i + 1 }}:</strong></p>
+                <p class="arabic">{{ surah.arabic1[i] }}</p>
+                <p class="translation">{{ surah.english[i] }}</p>
+                
+                <div>
+                    <label for="reciter-select-{{ i }}">Select Reciter:</label>
+                    <select id="reciter-select-{{ i }}" onchange="document.getElementById('ayah-audio-{{ i }}').src = this.value;">
+                        <option value="https://quranaudio.pages.dev/1/{{ surah.surahNo }}_{{ i + 1 }}.mp3" selected>Mishary Rashid Al Afasy</option>
+                        <option value="https://quranaudio.pages.dev/2/{{ surah.surahNo }}_{{ i + 1 }}.mp3">Abu Bakr Al Shatri</option>
+                        <option value="https://quranaudio.pages.dev/3/{{ surah.surahNo }}_{{ i + 1 }}.mp3">Nasser Al Qatami</option>
+                    </select>
+                    <audio id="ayah-audio-{{ i }}" controls preload="none">
+                        <source src="https://quranaudio.pages.dev/1/{{ surah.surahNo }}_{{ i + 1 }}.mp3" type="audio/mp3">
+                        Your browser does not support the audio element.
+                    </audio>
+                </div>
+
+            </div>
+        {% endfor %}
+        <a href="/">Back to Surah List</a>
+    {% else %}
+        <h1>Error</h1>
+        <p>No data available for this surah.</p>
+    {% endif %}
+</body>
+</html>
